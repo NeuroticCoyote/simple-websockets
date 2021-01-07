@@ -1,9 +1,8 @@
 simple_websockets
 =====
 
-An OTP application
+An basic application that accepts websocket connections and returns a RECV message.
 
-Build
+Build Locally
 -----
-
-    $ rebar3 compile
+    $ make clean shell
