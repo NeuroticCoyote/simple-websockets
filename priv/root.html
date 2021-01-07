@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <script type="text/javascript">
+            var webSocket;
+            function openConnection()
+            {
+                webSocket = new WebSocket("ws://127.0.0.1:8080/websocket");
+
+                webSocket.onopen = function()
+                {
+                    console.log('Connected');
+                };
+
+                webSocket.onmessage = function (a)
+                {
+                    var received_msg = a.data;
+                    console.log("Received: " + received_msg);
+                    var msg = document.createTextNode(received_msg);
+                    document.getElementById('messageLog').appendChild(msg);
+
+                    var br = document.createElement("br");
+                    document.getElementById('messageLog').appendChild(br);
+                };
+
+                webSocket.onclose = function()
+                {
+                    console.log('Connection closed');
+                };
+            }
+
+            function sendMessage()
+            {
+                text = document.getElementById("textBox").value;
+                webSocket.send(text);
+                console.log('Sent msg via webSocket');
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <h4> Commands </h4>
+        <button onclick="openConnection()">Open Connection</button><br/>
+        <button onclick="sendMessage()">Send Message</button>
+        <input type="text" id="textBox" name="textBox"/>
+        <h4> Logs </h4><hr>
+        <div id="messageLog"></div>
+    </body>
+
+</html>
